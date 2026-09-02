@@ -1,0 +1,893 @@
+<title>Baseline Strength</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+--ground:#F1F0EA;
+--surface:#FFFFFF;
+--surface-2:#E6E4DA;
+--ink:#1E2320;
+--ink-soft:#4B5450;
+--ink-faint:#838C87;
+--accent:#2F6E62;
+--accent-strong:#23554B;
+--accent-ink:#F1F0EA;
+--sand:#C9A46A;
+--line:rgba(30,35,32,0.13);
+--shadow: 0 1px 2px rgba(30,35,32,0.06), 0 12px 28px -18px rgba(30,35,32,0.28);
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]){
+--ground:#12150F;
+--surface:#191D16;
+--surface-2:#20241C;
+--ink:#ECEAE0;
+--ink-soft:#B0B7A9;
+--ink-faint:#757D71;
+--accent:#5FA697;
+--accent-strong:#7FC0B1;
+--accent-ink:#0E120D;
+--sand:#DAB878;
+--line:rgba(236,234,224,0.13);
+--shadow: 0 1px 2px rgba(0,0,0,0.4), 0 16px 32px -18px rgba(0,0,0,0.55);
+}
+}
+:root[data-theme="dark"]{
+--ground:#12150F;
+--surface:#191D16;
+--surface-2:#20241C;
+--ink:#ECEAE0;
+--ink-soft:#B0B7A9;
+--ink-faint:#757D71;
+--accent:#5FA697;
+--accent-strong:#7FC0B1;
+--accent-ink:#0E120D;
+--sand:#DAB878;
+--line:rgba(236,234,224,0.13);
+--shadow: 0 1px 2px rgba(0,0,0,0.4), 0 16px 32px -18px rgba(0,0,0,0.55);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+margin:0;
+background:var(--ground);
+color:var(--ink);
+font-family:'Figtree', system-ui, -apple-system, "Segoe UI", sans-serif;
+font-size:16px;
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+
+h1,h2,h3,h4{
+font-family:'Archivo Expanded', 'Arial Narrow', sans-serif;
+font-weight:700;
+line-height:1.08;
+margin:0;
+text-wrap:balance;
+letter-spacing:-0.01em;
+color:var(--ink);
+}
+p{ margin:0; }
+a{ color:inherit; }
+
+.mono{
+font-family:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+font-variant-numeric:tabular-nums;
+}
+
+.eyebrow{
+font-family:'IBM Plex Mono', ui-monospace, monospace;
+font-size:0.72rem;
+letter-spacing:0.14em;
+text-transform:uppercase;
+color:var(--accent-strong);
+font-weight:500;
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]) .eyebrow{ color:var(--accent); }
+}
+:root[data-theme="dark"] .eyebrow{ color:var(--accent); }
+
+.wrap{
+max-width:1180px;
+margin:0 auto;
+padding-inline:clamp(20px, 5vw, 56px);
+}
+
+a:focus-visible, button:focus-visible, .nav-toggle:focus-visible{
+outline:2px solid var(--accent);
+outline-offset:3px;
+border-radius:2px;
+}
+@media (prefers-reduced-motion: reduce){
+*{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+}
+
+/* ---------- Nav ---------- */
+header.site{
+position:sticky; top:0; z-index:40;
+background:color-mix(in srgb, var(--ground) 88%, transparent);
+backdrop-filter:blur(10px) saturate(1.1);
+border-bottom:1px solid var(--line);
+}
+.nav-row{
+display:flex; align-items:center; justify-content:space-between;
+padding-block:16px;
+gap:24px;
+}
+.logo{
+display:flex; align-items:baseline; gap:8px;
+font-family:'Archivo Expanded', sans-serif;
+font-weight:800;
+font-size:1.08rem;
+letter-spacing:-0.01em;
+text-decoration:none;
+color:var(--ink);
+white-space:nowrap;
+}
+.logo .mark{
+width:9px; height:9px; border-radius:1px;
+background:var(--accent);
+display:inline-block;
+transform:rotate(45deg);
+flex-shrink:0;
+}
+.nav-links{
+display:flex; align-items:center; gap:32px;
+list-style:none; margin:0; padding:0;
+}
+.nav-links a{
+text-decoration:none;
+font-size:0.92rem;
+font-weight:500;
+color:var(--ink-soft);
+padding:6px 2px;
+border-bottom:1px solid transparent;
+transition:color .15s ease, border-color .15s ease;
+}
+.nav-links a:hover{ color:var(--ink); border-color:var(--line); }
+
+.btn{
+display:inline-flex; align-items:center; justify-content:center;
+gap:8px;
+font-family:'Figtree', sans-serif;
+font-weight:600;
+font-size:0.92rem;
+padding:11px 20px;
+border-radius:3px;
+border:1px solid transparent;
+cursor:pointer;
+text-decoration:none;
+white-space:nowrap;
+transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
+}
+.btn-primary{
+background:var(--accent);
+color:var(--accent-ink);
+border-color:var(--accent);
+}
+.btn-primary:hover{ background:var(--accent-strong); border-color:var(--accent-strong); transform:translateY(-1px); }
+.btn-ghost{
+background:transparent;
+color:var(--ink);
+border-color:var(--line);
+}
+.btn-ghost:hover{ border-color:var(--ink-faint); background:var(--surface-2); }
+.btn-sm{ padding:9px 16px; font-size:0.85rem; }
+
+.nav-toggle{ display:none; }
+#nav-check{ display:none; }
+
+/* ---------- Hero ---------- */
+.hero{
+padding-block:clamp(52px, 8vw, 96px) clamp(48px, 7vw, 84px);
+position:relative;
+overflow:hidden;
+}
+.hero-grid{
+display:grid;
+grid-template-columns:minmax(0,1.05fr) minmax(280px, 0.95fr);
+gap:clamp(32px, 6vw, 64px);
+align-items:center;
+}
+.hero-eyebrow{ margin-bottom:18px; }
+.hero h1{
+font-size:clamp(2.3rem, 4.6vw, 3.6rem);
+max-width:15ch;
+}
+.hero h1 em{
+font-style:normal;
+color:var(--accent-strong);
+}
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]) .hero h1 em{ color:var(--accent); }
+}
+:root[data-theme="dark"] .hero h1 em{ color:var(--accent); }
+
+.hero p.lede{
+margin-top:20px;
+font-size:1.08rem;
+color:var(--ink-soft);
+max-width:46ch;
+line-height:1.65;
+}
+.hero-ctas{
+margin-top:32px;
+display:flex; gap:14px; flex-wrap:wrap;
+}
+.hero-stats{
+margin-top:44px;
+display:flex;
+gap:clamp(20px, 4vw, 40px);
+flex-wrap:wrap;
+}
+.hero-stat .num{
+font-size:1.5rem; font-weight:500;
+color:var(--ink);
+display:block;
+}
+.hero-stat .label{
+font-size:0.78rem;
+color:var(--ink-faint);
+margin-top:2px;
+max-width:16ch;
+}
+
+.blueprint{ width:100%; height:auto; color:var(--accent); }
+.blueprint text{ font-family:'IBM Plex Mono', monospace; }
+
+/* ---------- Section scaffolding ---------- */
+section{ padding-block:clamp(52px, 7vw, 88px); }
+.section-head{
+display:flex;
+flex-direction:column;
+gap:14px;
+max-width:60ch;
+margin-bottom:clamp(32px, 5vw, 52px);
+}
+.section-head h2{ font-size:clamp(1.7rem, 3vw, 2.35rem); }
+.section-head p{ color:var(--ink-soft); font-size:1.02rem; max-width:52ch; }
+
+.rule{ border:0; border-top:1px solid var(--line); margin:0; }
+
+/* ---------- Method ---------- */
+.method{ background:var(--surface); }
+.method-grid{
+display:grid;
+grid-template-columns: 1.1fr 0.9fr;
+gap:clamp(36px, 6vw, 72px);
+}
+.method-body p{
+color:var(--ink-soft);
+margin-bottom:1.15em;
+max-width:58ch;
+}
+.method-body p:last-child{ margin-bottom:0; }
+.method-body strong{ color:var(--ink); font-weight:600; }
+
+.metric-rail{
+display:flex; flex-direction:column; gap:0;
+border-top:1px solid var(--line);
+}
+.metric{
+display:flex; justify-content:space-between; align-items:baseline;
+padding-block:18px;
+border-bottom:1px solid var(--line);
+gap:16px;
+}
+.metric .metric-label{ font-size:0.88rem; color:var(--ink-soft); max-width:26ch; }
+.metric .metric-val{ font-size:1.15rem; color:var(--accent-strong); font-weight:500; white-space:nowrap; }
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]) .metric .metric-val{ color:var(--accent); }
+}
+:root[data-theme="dark"] .metric .metric-val{ color:var(--accent); }
+
+/* ---------- Process ---------- */
+.process-list{
+display:grid;
+grid-template-columns:repeat(4, 1fr);
+gap:1px;
+background:var(--line);
+border:1px solid var(--line);
+border-radius:4px;
+overflow:hidden;
+}
+.process-step{
+background:var(--surface);
+padding:28px 24px 30px;
+display:flex; flex-direction:column; gap:14px;
+}
+.process-step .idx{
+font-family:'IBM Plex Mono', monospace;
+font-size:0.85rem;
+color:var(--ink-faint);
+font-variant-numeric:tabular-nums;
+}
+.process-step h3{
+font-family:'Figtree', sans-serif;
+font-weight:700;
+font-size:1.05rem;
+}
+.process-step p{ color:var(--ink-soft); font-size:0.93rem; line-height:1.55; }
+
+/* ---------- Programs ---------- */
+.programs-grid{
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:20px;
+}
+.program-card{
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:6px;
+padding:28px 26px 26px;
+display:flex; flex-direction:column;
+box-shadow:var(--shadow);
+}
+.program-card.featured{ border-color:var(--accent); position:relative; }
+.program-tag{
+font-family:'IBM Plex Mono', monospace;
+font-size:0.68rem;
+letter-spacing:0.1em;
+text-transform:uppercase;
+color:var(--sand);
+margin-bottom:10px;
+}
+.program-card h3{ font-size:1.28rem; margin-bottom:6px; }
+.program-price{
+margin-top:16px;
+display:flex; align-items:baseline; gap:6px;
+}
+.program-price .amount{ font-family:'IBM Plex Mono', monospace; font-size:1.5rem; font-weight:500; color:var(--ink); }
+.program-price .period{ font-size:0.85rem; color:var(--ink-faint); }
+.program-desc{ margin-top:14px; color:var(--ink-soft); font-size:0.94rem; line-height:1.6; }
+.program-feats{ list-style:none; margin:20px 0 0; padding:0; display:flex; flex-direction:column; gap:10px; flex-grow:1; }
+.program-feats li{
+display:flex; gap:10px; align-items:flex-start;
+font-size:0.88rem; color:var(--ink-soft);
+}
+.program-feats li::before{
+content:"";
+width:5px; height:5px;
+border-radius:1px;
+background:var(--accent);
+margin-top:7px;
+flex-shrink:0;
+transform:rotate(45deg);
+}
+.program-card .btn{ margin-top:22px; width:100%; }
+
+/* ---------- Staff ---------- */
+.staff-grid{
+display:grid;
+grid-template-columns:repeat(2, 1fr);
+gap:20px;
+}
+.staff-card{
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:6px;
+padding:26px;
+display:grid;
+grid-template-columns:72px 1fr;
+gap:18px;
+}
+.staff-avatar{
+width:72px; height:72px;
+border-radius:5px;
+background:var(--surface-2);
+border:1px dashed var(--ink-faint);
+display:flex; align-items:center; justify-content:center;
+font-family:'IBM Plex Mono', monospace;
+font-size:0.62rem;
+color:var(--ink-faint);
+text-align:center;
+line-height:1.3;
+padding:6px;
+}
+.staff-card h3{ font-size:1.05rem; font-weight:700; font-family:'Figtree',sans-serif; }
+.staff-role{ font-size:0.82rem; color:var(--accent-strong); margin-top:3px; font-weight:600; }
+@media (prefers-color-scheme: dark){
+:root:not([data-theme="light"]) .staff-role{ color:var(--accent); }
+}
+:root[data-theme="dark"] .staff-role{ color:var(--accent); }
+.staff-card p.bio{ margin-top:10px; font-size:0.88rem; color:var(--ink-soft); line-height:1.55; }
+.staff-note{
+margin-top:12px;
+font-size:0.76rem;
+color:var(--ink-faint);
+font-style:italic;
+}
+
+/* ---------- Testimonials ---------- */
+.testimonials{ background:var(--surface); }
+.testi-grid{
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:20px;
+}
+.testi-card{
+background:var(--ground);
+border:1px solid var(--line);
+border-radius:6px;
+padding:24px;
+display:flex; flex-direction:column; gap:16px;
+}
+.testi-card q{
+font-size:0.98rem;
+color:var(--ink);
+line-height:1.6;
+quotes:none;
+}
+.testi-attr{ display:flex; flex-direction:column; gap:2px; }
+.testi-attr .name{ font-size:0.86rem; font-weight:600; color:var(--ink); }
+.testi-attr .desc{ font-size:0.78rem; color:var(--ink-faint); }
+.testi-flag{
+font-family:'IBM Plex Mono', monospace;
+font-size:0.66rem;
+letter-spacing:0.08em;
+text-transform:uppercase;
+color:var(--ink-faint);
+border-top:1px dashed var(--line);
+padding-top:10px;
+margin-top:2px;
+}
+
+/* ---------- Final CTA ---------- */
+.final-cta{
+background:var(--accent-strong);
+color:var(--accent-ink);
+border-radius:8px;
+margin-inline:clamp(20px, 5vw, 56px);
+padding:clamp(40px, 6vw, 64px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:32px;
+flex-wrap:wrap;
+}
+.final-cta h2{ color:var(--accent-ink); font-size:clamp(1.5rem, 3vw, 2.1rem); max-width:20ch; }
+.final-cta p{ color:var(--accent-ink); opacity:0.82; margin-top:10px; max-width:40ch; font-size:0.98rem; }
+.final-cta .btn-primary{
+background:var(--accent-ink);
+color:var(--accent-strong);
+border-color:var(--accent-ink);
+}
+.final-cta .btn-primary:hover{ background:transparent; color:var(--accent-ink); border-color:var(--accent-ink); }
+
+/* ---------- Footer ---------- */
+footer.site{
+padding-block:44px 40px;
+margin-top:24px;
+}
+.footer-grid{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:32px;
+flex-wrap:wrap;
+padding-top:32px;
+border-top:1px solid var(--line);
+}
+.footer-brand .logo{ margin-bottom:10px; }
+.footer-brand p{ color:var(--ink-faint); font-size:0.85rem; max-width:36ch; line-height:1.6; }
+.footer-cols{ display:flex; gap:56px; flex-wrap:wrap; }
+.footer-col h4{
+font-family:'IBM Plex Mono', monospace;
+font-size:0.7rem;
+letter-spacing:0.1em;
+text-transform:uppercase;
+color:var(--ink-faint);
+font-weight:500;
+margin-bottom:14px;
+}
+.footer-col ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.footer-col a{ text-decoration:none; color:var(--ink-soft); font-size:0.88rem; }
+.footer-col a:hover{ color:var(--ink); }
+.footer-bottom{
+margin-top:36px;
+padding-top:20px;
+border-top:1px solid var(--line);
+display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+font-size:0.78rem; color:var(--ink-faint);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px){
+.hero-grid{ grid-template-columns:1fr; }
+.hero-illustration{ order:-1; max-width:420px; margin-inline:auto; opacity:0.85; }
+.method-grid{ grid-template-columns:1fr; }
+.process-list{ grid-template-columns:repeat(2, 1fr); }
+.programs-grid{ grid-template-columns:1fr; }
+.staff-grid{ grid-template-columns:1fr; }
+.testi-grid{ grid-template-columns:1fr; }
+}
+@media (max-width: 720px){
+.nav-links{
+position:absolute; top:100%; left:0; right:0;
+flex-direction:column; align-items:stretch;
+background:var(--surface);
+border-bottom:1px solid var(--line);
+padding:8px clamp(20px,5vw,56px) 18px;
+gap:4px;
+max-height:0;
+overflow:hidden;
+transition:max-height .22s ease;
+}
+.nav-links a{ padding:12px 0; border-bottom:1px solid var(--line); }
+#nav-check:checked ~ .nav-row .nav-links{ max-height:280px; }
+.nav-toggle{
+display:inline-flex;
+width:36px; height:36px;
+align-items:center; justify-content:center;
+border:1px solid var(--line);
+border-radius:4px;
+background:transparent;
+cursor:pointer;
+}
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
+content:""; display:block; width:16px; height:1.5px; background:var(--ink); position:relative;
+transition:transform .18s ease, opacity .18s ease;
+}
+.nav-toggle span::before{ position:absolute; top:-5px; }
+.nav-toggle span::after{ position:absolute; top:5px; }
+.nav-cta{ display:none; }
+}
+@media (min-width: 721px){
+.nav-toggle{ display:none; }
+}
+@media (max-width: 620px){
+.process-list{ grid-template-columns:1fr; }
+.hero-ctas .btn{ width:100%; }
+.final-cta{ flex-direction:column; align-items:flex-start; }
+.final-cta .btn{ width:100%; }
+}
+</style>
+
+<header class="site">
+<input type="checkbox" id="nav-check">
+<div class="wrap nav-row">
+<a class="logo" href="#top"><span class="mark"></span>Baseline Strength</a>
+<label class="nav-toggle" for="nav-check" aria-label="Toggle menu"><span></span></label>
+<ul class="nav-links">
+<li><a href="#method">Method</a></li>
+<li><a href="#programs">Programs</a></li>
+<li><a href="#process">Process</a></li>
+<li><a href="#staff">Coaching Staff</a></li>
+<li class="nav-cta-mobile"><a class="btn btn-primary btn-sm" href="#contact">Book an assessment</a></li>
+</ul>
+<a class="btn btn-primary btn-sm nav-cta" href="#contact">Book an assessment</a>
+</div>
+</header>
+
+<main id="top">
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<p class="eyebrow hero-eyebrow">Strength &amp; movement coaching — in-person &amp; remote programming</p>
+<h1>Find your <em>baseline.</em> Build from there, correctly, one block at a time.</h1>
+<p class="lede">Baseline Strength is technique-first barbell coaching for people who treat training as a skill to sharpen, not a punishment to survive. We measure where you actually are, program from real numbers, and retest instead of guessing.</p>
+<div class="hero-ctas">
+<a class="btn btn-primary" href="#contact">Book an assessment</a>
+<a class="btn btn-ghost" href="#process">See how it works</a>
+</div>
+<div class="hero-stats">
+<div class="hero-stat">
+<span class="num mono">3</span>
+<span class="label">Lifts measured at intake — squat, hinge, press</span>
+</div>
+<div class="hero-stat">
+<span class="num mono">6&nbsp;wks</span>
+<span class="label">Length of a standard reset block</span>
+</div>
+<div class="hero-stat">
+<span class="num mono">1:1</span>
+<span class="label">Video form review, every training week</span>
+</div>
+</div>
+</div>
+
+<div class="hero-illustration">
+<svg class="blueprint" viewBox="0 0 560 400" role="img" aria-labelledby="bpTitle bpDesc" fill="none">
+<title id="bpTitle">Technical diagram of a barbell set against a baseline measurement scale</title>
+<desc id="bpDesc">Line illustration of a loaded barbell with a vertical measurement scale rising from a dashed baseline, in the style of a technical blueprint.</desc>
+
+<!-- baseline -->
+<line x1="30" y1="330" x2="530" y2="330" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 5" opacity="0.55"/>
+<text x="30" y="352" font-size="11" letter-spacing="1.5" fill="currentColor" opacity="0.7">BASELINE</text>
+<text x="470" y="352" font-size="11" letter-spacing="1" fill="currentColor" opacity="0.5">00.0</text>
+
+<!-- vertical measurement scale -->
+<g opacity="0.5">
+<line x1="70" y1="330" x2="70" y2="70" stroke="currentColor" stroke-width="1"/>
+<line x1="63" y1="330" x2="70" y2="330" stroke="currentColor" stroke-width="1"/>
+<line x1="63" y1="278" x2="70" y2="278" stroke="currentColor" stroke-width="1"/>
+<line x1="63" y1="226" x2="70" y2="226" stroke="currentColor" stroke-width="1"/>
+<line x1="63" y1="174" x2="70" y2="174" stroke="currentColor" stroke-width="1"/>
+<line x1="63" y1="122" x2="70" y2="122" stroke="currentColor" stroke-width="1"/>
+<line x1="63" y1="70" x2="70" y2="70" stroke="currentColor" stroke-width="1"/>
+<text x="40" y="122" font-size="9" fill="currentColor">+4</text>
+<text x="40" y="174" font-size="9" fill="currentColor">+3</text>
+<text x="40" y="226" font-size="9" fill="currentColor">+2</text>
+<text x="40" y="278" font-size="9" fill="currentColor">+1</text>
+</g>
+
+<!-- barbell: bar -->
+<line x1="95" y1="180" x2="465" y2="180" stroke="currentColor" stroke-width="2.25" opacity="0.85"/>
+
+<!-- grip knurl marks -->
+<g opacity="0.6" stroke="currentColor" stroke-width="1">
+<line x1="220" y1="172" x2="220" y2="188"/>
+<line x1="228" y1="172" x2="228" y2="188"/>
+<line x1="236" y1="172" x2="236" y2="188"/>
+<line x1="324" y1="172" x2="324" y2="188"/>
+<line x1="332" y1="172" x2="332" y2="188"/>
+<line x1="340" y1="172" x2="340" y2="188"/>
+</g>
+
+<!-- left plates (concentric, largest outer) -->
+<g stroke="currentColor" fill="none">
+<circle cx="120" cy="180" r="86" stroke-width="1.4" opacity="0.9"/>
+<circle cx="120" cy="180" r="86" stroke-width="1.4" opacity="0.9" transform="translate(-14 0)"/>
+<circle cx="120" cy="180" r="58" stroke-width="1.2" opacity="0.55" transform="translate(20 0)"/>
+<circle cx="120" cy="180" r="14" stroke-width="1" opacity="0.5"/>
+</g>
+
+<!-- right plates -->
+<g stroke="currentColor" fill="none">
+<circle cx="440" cy="180" r="86" stroke-width="1.4" opacity="0.9"/>
+<circle cx="440" cy="180" r="86" stroke-width="1.4" opacity="0.9" transform="translate(14 0)"/>
+<circle cx="440" cy="180" r="58" stroke-width="1.2" opacity="0.55" transform="translate(-20 0)"/>
+<circle cx="440" cy="180" r="14" stroke-width="1" opacity="0.5"/>
+</g>
+
+<!-- collars -->
+<line x1="185" y1="166" x2="185" y2="194" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+<line x1="375" y1="166" x2="375" y2="194" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+
+<!-- dimension callout from baseline up to bar -->
+<g opacity="0.55">
+<line x1="280" y1="330" x2="280" y2="188" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+<path d="M276 195 L280 186 L284 195" stroke="currentColor" stroke-width="1" fill="none"/>
+</g>
+<text x="290" y="260" font-size="10.5" letter-spacing="0.5" fill="currentColor" opacity="0.75">MEASURED, NOT GUESSED</text>
+</svg>
+</div>
+</div>
+</section>
+
+<section class="method" id="method">
+<div class="wrap method-grid">
+<div>
+<div class="section-head">
+<p class="eyebrow">The method</p>
+<h2>Training programmed from your numbers, not a template.</h2>
+</div>
+<div class="method-body">
+<p>Most programs online are written for an average lifter who doesn't exist. They assume a starting squat depth, a hip mobility, a bar path — and hand everyone the same sets and reps regardless of whether their technique can support the load yet. That's how people get strong on paper and get hurt in practice.</p>
+<p>We start differently. Every client's first session is a <strong>movement assessment</strong>: we film your squat, hinge, and press from multiple angles, check joint-by-joint range of motion, and establish your baseline numbers — the working weights and technique markers you can currently repeat with good form, not your one-off max. That baseline is the zero point everything else gets measured against.</p>
+<p>From there, programming is a series of small, deliberate increases against a plan built for your baseline specifically — not a percentage chart lifted from someone else's program. We retest on a fixed schedule, log every session in your training file, and adjust the plan to what the numbers actually show, not to how the week felt.</p>
+</div>
+</div>
+<div>
+<div class="metric-rail">
+<div class="metric">
+<span class="metric-label">Assessment length</span>
+<span class="metric-val mono">75 min</span>
+</div>
+<div class="metric">
+<span class="metric-label">Baseline lifts tracked</span>
+<span class="metric-val mono">Squat · Hinge · Press</span>
+</div>
+<div class="metric">
+<span class="metric-label">Standard retest interval</span>
+<span class="metric-val mono">Every 4 wks</span>
+</div>
+<div class="metric">
+<span class="metric-label">Form-check turnaround</span>
+<span class="metric-val mono">&lt; 48 hrs</span>
+</div>
+<div class="metric">
+<span class="metric-label">Training log format</span>
+<span class="metric-val mono">Load · RPE · notes</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="process">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">How it works</p>
+<h2>Four steps, in this order, every time.</h2>
+<p>The sequence matters — programming before assessment is exactly the shortcut we're built to avoid.</p>
+</div>
+<div class="process-list">
+<div class="process-step">
+<span class="idx mono">01</span>
+<h3>Movement assessment</h3>
+<p>A 75-minute session where we film and measure your squat, hinge, and press, check mobility at the joints that limit them, and flag any technique faults before load is added.</p>
+</div>
+<div class="process-step">
+<span class="idx mono">02</span>
+<h3>Baseline numbers established</h3>
+<p>We convert the assessment into working numbers: the loads, ranges, and cues you can currently repeat correctly. This is your zero point, logged in your training file.</p>
+</div>
+<div class="process-step">
+<span class="idx mono">03</span>
+<h3>Programmed training block</h3>
+<p>A block of 4–6 weeks written directly from your baseline, with weekly form-check video review so technique holds as load increases.</p>
+</div>
+<div class="process-step">
+<span class="idx mono">04</span>
+<h3>Retest &amp; progress</h3>
+<p>We re-run the baseline lifts, compare against the last block's numbers, and write the next block from what actually changed — not from how it felt.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="programs">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">Programs</p>
+<h2>Three ways to train with us.</h2>
+<p>Every path starts with the same movement assessment — the difference is how closely we work together after that.</p>
+</div>
+<div class="programs-grid">
+<div class="program-card">
+<div class="program-tag">Remote</div>
+<h3>Remote Programming</h3>
+<div class="program-price"><span class="amount mono">$185</span><span class="period">/ month</span></div>
+<p class="program-desc">Monthly programmed training built from your baseline, delivered through your training log, with structured video form checks so a coach is watching your bar path even when they're not in the room.</p>
+<ul class="program-feats">
+<li>Movement assessment &amp; baseline session</li>
+<li>Monthly training block, written to your numbers</li>
+<li>Weekly form-check video review</li>
+<li>Retest and reprogram every 4 weeks</li>
+</ul>
+<a class="btn btn-ghost" href="#contact">Start remote</a>
+</div>
+
+<div class="program-card featured">
+<div class="program-tag">Most booked</div>
+<h3>1:1 In-Person Coaching</h3>
+<div class="program-price"><span class="amount mono">$420</span><span class="period">/ month</span></div>
+<p class="program-desc">Weekly sessions on the floor with a coach, plus programming for the days you train on your own. The tightest feedback loop we offer — technique is corrected as it happens, not a week later on video.</p>
+<ul class="program-feats">
+<li>Movement assessment &amp; baseline session</li>
+<li>One 60-minute in-person session per week</li>
+<li>Full programming for independent training days</li>
+<li>Retest and reprogram every 4 weeks</li>
+</ul>
+<a class="btn btn-primary" href="#contact">Book in-person</a>
+</div>
+
+<div class="program-card">
+<div class="program-tag">6-week block</div>
+<h3>The Reset Block</h3>
+<div class="program-price"><span class="amount mono">$540</span><span class="period">/ block</span></div>
+<p class="program-desc">A focused six-week block for lifters returning after time off, working around a nagging pain point, or stuck at the same numbers for months. Technique-first, load intentionally conservative, built to hand you back a clean baseline.</p>
+<ul class="program-feats">
+<li>Extended 90-minute movement assessment</li>
+<li>Twice-weekly coached sessions for 6 weeks</li>
+<li>Load deliberately capped below prior max</li>
+<li>Closing retest &amp; handoff plan</li>
+</ul>
+<a class="btn btn-ghost" href="#contact">Start the reset</a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="staff">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">Coaching staff</p>
+<h2>Who's on the floor.</h2>
+<p>Coach profiles below — replace with real names, certifications, and specialties before this page goes live.</p>
+</div>
+<div class="staff-grid">
+<div class="staff-card">
+<div class="staff-avatar">ADD<br>PHOTO</div>
+<div>
+<h3>Add coach name here</h3>
+<p class="staff-role">Add title / specialty here</p>
+<p class="bio">Add coach certifications here (e.g. USAW, NSCA-CSCS), years coaching, and 2–3 sentences on their approach to technique-first training.</p>
+<p class="staff-note">Placeholder profile — replace before publishing.</p>
+</div>
+</div>
+<div class="staff-card">
+<div class="staff-avatar">ADD<br>PHOTO</div>
+<div>
+<h3>Add coach name here</h3>
+<p class="staff-role">Add title / specialty here</p>
+<p class="bio">Add coach certifications here, background (competitive lifting, physical therapy, etc.), and what they focus on with new clients.</p>
+<p class="staff-note">Placeholder profile — replace before publishing.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="testimonials">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">What clients say</p>
+<h2>Sample testimonials — swap in real client quotes.</h2>
+</div>
+<div class="testi-grid">
+<div class="testi-card">
+<q>My squat depth was the same for two years and nobody told me why. The assessment found it in twenty minutes — it was ankle mobility, not effort. Six weeks later I have four more inches and a program that actually accounts for it.</q>
+<div class="testi-attr">
+<span class="name">Priya M.</span>
+<span class="desc">Remote Programming client, sample quote</span>
+</div>
+<div class="testi-flag">Sample content — replace with a real quote</div>
+</div>
+<div class="testi-card">
+<q>I came back from a shoulder injury terrified of loading a bar again. The Reset Block was the first program that didn't just tell me to "listen to my body" — it gave me actual numbers to work up from.</q>
+<div class="testi-attr">
+<span class="name">Daniel K.</span>
+<span class="desc">Reset Block client, sample quote</span>
+</div>
+<div class="testi-flag">Sample content — replace with a real quote</div>
+</div>
+<div class="testi-card">
+<q>What I didn't expect was how much I'd like the retests. Seeing the baseline numbers move every four weeks made the whole thing feel like a project I was running, not a class I was attending.</q>
+<div class="testi-attr">
+<span class="name">Anthony R.</span>
+<span class="desc">1:1 In-Person client, sample quote</span>
+</div>
+<div class="testi-flag">Sample content — replace with a real quote</div>
+</div>
+</div>
+</div>
+</section>
+<section id="contact">
+<div class="final-cta">
+<div>
+<h2>Ready to find your baseline?</h2>
+<p>Book a movement assessment and leave with real numbers, a clear plan, and a coach who's watching your form — not your effort level.</p>
+</div>
+<a class="btn btn-primary" href="mailto:coach@baselinestrength.example">Book an assessment</a>
+</div>
+</section>
+</main>
+
+<footer class="site">
+<div class="wrap">
+<div class="footer-grid">
+<div class="footer-brand">
+<a class="logo" href="#top"><span class="mark"></span>Baseline Strength</a>
+<p>Technique-first strength and movement coaching, in-person and remote. Measure the baseline, build from there, deliberately.</p>
+</div>
+<div class="footer-cols">
+<div class="footer-col">
+<h4>Site</h4>
+<ul>
+<li><a href="#method">Method</a></li>
+<li><a href="#programs">Programs</a></li>
+<li><a href="#process">Process</a></li>
+<li><a href="#staff">Coaching staff</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<ul>
+<li><a href="mailto:coach@baselinestrength.example">coach@baselinestrength.example</a></li>
+<li><a href="#contact">Book an assessment</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Baseline Strength. Placeholder contact details — update before launch.</span>
+<span class="mono">EST. BASELINE</span>
+</div>
+</div>
+</footer>
